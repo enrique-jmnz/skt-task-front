@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewProductComponent } from '@app-products';
+import {NewProductComponent, ProductsModule} from '@app-products';
+import {MatDialogRef} from "@angular/material/dialog";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('NewProductComponent', () => {
   let component: NewProductComponent;
@@ -8,7 +11,13 @@ describe('NewProductComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewProductComponent ]
+      imports: [ ProductsModule, HttpClientTestingModule, NoopAnimationsModule ],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        }
+      ]
     })
     .compileComponents();
 

@@ -1,0 +1,70 @@
+<form [formGroup]="formGroup" (ngSubmit)="submit()">
+
+  <div fxLayout="row wrap" fxLayoutAlign="center space-between" class="main-container">
+    <div fxFlex="100" fxLayout="row wrap">
+      <h3 fxFlex="100">Add Product</h3>
+
+      <mat-form-field class="form-field" appearance="outline" fxFlex="100">
+        <mat-label>Name</mat-label>
+        <input type="text" matInput [formControl]="nameControl"
+               placeholder="Ex. 50 inches television">
+        <mat-error *ngIf="nameControl.hasError('pattern') && !nameControl.hasError('required')">
+          Please enter a valid name
+        </mat-error>
+        <mat-error *ngIf="nameControl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="nameControl.hasError('maxlength')">
+          Name maximum length is <strong>100</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline" fxFlex="100">
+        <mat-label>Description</mat-label>
+        <input type="text" matInput [formControl]="descriptionControl"
+               placeholder="Ex. New brand 50 inches television with Android TV">
+        <mat-error *ngIf="descriptionControl.hasError('pattern') && !descriptionControl.hasError('required')">
+          Please enter a valid description
+        </mat-error>
+        <mat-error *ngIf="descriptionControl.hasError('required')">
+          Description is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="descriptionControl.hasError('maxlength')">
+          Description maximum length is <strong>255</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="outline" fxFlex="100">
+        <mat-label>Price</mat-label>
+        <input type="number" step="any" matInput [formControl]="priceControl"
+               placeholder="Ex. 99.99">
+        <mat-error *ngIf="priceControl.hasError('required')">
+          Price is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="priceControl.hasError('min')">
+          Price minimum value is <strong>0</strong>
+        </mat-error>
+        <mat-error *ngIf="priceControl.hasError('max')">
+          Price maximum value is <strong>1.000.000</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <div *ngIf="submitting" fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+        <mat-spinner [diameter]="60"></mat-spinner>
+      </div>
+
+      <div *ngIf="error" fxFlex="100" class="error-pnl">
+        Error: {{ errorMsg }}
+      </div>
+    </div>
+
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="end center">
+      <button mat-stroked-button [disabled]="submitting" (click)="close()" class="cancel-button">
+        Cancel
+      </button>
+      <button mat-flat-button [disabled]="submitting" color="primary" type="submit" class="submit-button">
+        Submit
+      </button>
+    </div>
+  </div>
+</form>
